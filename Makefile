@@ -1,7 +1,7 @@
 NAME = push_swap
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I./libft
-SRCS = push_swap.c
+SRCS = push_swap.c ft_swap.c
 LIBFT = ./libft/libft.a
 OBJS = $(SRCS:.c=.o)
 MAKE = make
