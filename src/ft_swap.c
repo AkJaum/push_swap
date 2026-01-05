@@ -4,16 +4,16 @@ void    *ft_move(int *stack_a, int *stack_b, int size, char flag)
 {
 }
 /*Troca os dois primeiros argumentos de stack_x*/
-void    *ft_sa_n_sb(int *stack_x)
+int ft_sa_n_sb(int *stack_x)
 {
     int temp;
 
-    if (!stack_x)
-        return (NULL);
+    if (!stack_x && !stack_x[1])
+        return (0);
     temp = stack_x[0];
     stack_x[0] = stack_x[1];
     stack_x[1] = temp;
-    return (0);
+    return (1);
 }
 
 /*Troca o topo de stack_x para o topo de stack_y*/

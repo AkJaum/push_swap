@@ -27,24 +27,18 @@ void    *ft_check(char **argv, int *a, int argc)
 
 int main(int argc, char **argv)
 {
-    int *stack_a;
-    int *stack_b;
+    t_stack stack_a;
+    t_stack stack_b;
     int i;
 
-    stack_a = malloc(sizeof(int) * (argc - 1));
-    stack_b = malloc(sizeof(int) * (argc - 1));
-    if (!stack_a || !stack_b)
+    stack_a.data = malloc(sizeof(int) * (argc - 1));
+    stack_b.data = malloc(sizeof(int) * (argc - 1));
+    if (!stack_a.data || !stack_b.data)
         return (1);
-    ft_check(argv, stack_a, argc);
-    i = 0;
-    ft_pa_n_pb(stack_a, stack_b, 'b');
-    while (i < argc - 1)
-    {
-        printf("%d ", stack_a[i]);
-        printf("%d\n", stack_b[i]);
-        i++;
-    }
-    free(stack_a);
-    free(stack_b);
+    stack_a.size = argc - 1;
+    stack_b.size = 0;
+    ft_check(argv, stack_a.data, argc);
+    free(stack_a.data);
+    free(stack_b.data);
     return (0);
 }

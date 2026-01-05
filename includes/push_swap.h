@@ -3,7 +3,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "libft.h"
+
+typedef struct stack
+{
+    int *data;
+    int size;
+}   t_stack;
 
 int main(int argc, char **argv);
 void    *ft_sa_n_sb(int *stack_x);
