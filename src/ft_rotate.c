@@ -4,7 +4,6 @@
 void    *ft_ra_n_rb(int *stack_x, int size)
 {
     int contador;
-    int temp;
     int *temp_stack;
     
     if (!stack_x || size < 2)

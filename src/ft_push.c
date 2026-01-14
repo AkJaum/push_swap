@@ -1,48 +1,45 @@
 #include "push_swap.h"
 
-void    ft_pa(int *stack_a, int *stack_b)
+void    ft_push(int *stack_dest, int *stack_src, int *size_dest, int *size_src)
 {
-    int temp;
+    int *temp;
+    int i;
 
-    if (!stack_a || !stack_b)
-        return (0);
-    //Troca o topo de stack_b com o topo de stack_a (falta implementar o shift dos elementos intermediários)
-    temp = stack_b[0];
-    stack_b[0] = stack_a[0];
-    stack_a[0] = temp;
-}
-
-void   ft_pb(int *stack_a, int *stack_b)
-{
-    int temp;
-
-    if (!stack_a || !stack_b)
-        return (0);
-    //Troca o topo de stack_a com o topo de stack_b (falta implementar o shift dos elementos intermediários)
-    temp = stack_a[0];
-    stack_a[0] = stack_b[0];
-    stack_b[0] = temp;
-}
-
-//Função antiga (precisa de adaptação para funcionar corretamente)
-/*Troca o topo de stack_x para o topo de stack_y*/
-void    *ft_pa_n_pb(int *stack_a, int *stack_b, char flag)
-{
-    int temp;
-
-    if (!stack_a || !stack_b)
-        return (NULL);
-    if (flag == 'a')
+    if (!stack_dest || !stack_src)
+        return ;
+    if (*size_src == 0)
+        return ;
+    temp = malloc(sizeof(int) * (*size_dest + 1));
+    if (!temp)
+        return ;
+    //Coloca o topo da stack_src no topo da stack_dest
+    temp[0] = stack_src[0];
+    i = 1;
+    //Copia os elementos da stack_dest para a temporária, deslocando-os uma posição
+    while (i < *size_dest)
     {
-        temp = stack_b[0];
-        stack_b[0] = stack_a[0];
-        stack_a[0] = temp;
+        temp[i] = stack_dest[i - 1];
+        i++;
     }
-    else if (flag == 'b')
+    //Copia os elementos da temporária de volta para a stack_dest
+    i = 0;
+    while (i <= *size_dest)
     {
-        temp = stack_a[0];
-        stack_a[0] = stack_b[0];
-        stack_b[0] = temp;
+        stack_dest[i] = temp[i];
+        i++;
     }
-    return (0);
+    (*size_dest)++;
+    if (*size_src > 0)
+    {
+        //Remove o topo da stack_src, deslocando os elementos para baixo
+        i = 0;
+        while (i < *size_src - 1)
+        {
+            stack_src[i] = stack_src[i + 1];
+            i++;
+        }
+        (*size_src)--;
+    }
+    free (temp);
+    return ;
 }

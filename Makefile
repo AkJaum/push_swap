@@ -1,29 +1,30 @@
-NAME = push_swap
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I./libft
-SRCS = push_swap.c ft_swap.c
-LIBFT = ./libft/libft.a
-OBJS = $(SRCS:.c=.o)
-MAKE = make
+NAME	= push_swap
+CC	= gcc
+CFLAGS	= -Wall -Wextra -Werror -I includes/ -I libft/
+SRCS	= src/push_swap.c src/ft_swap.c src/ft_rotate.c src/ft_revrotate.c src/ft_dosort.c src/ft_push.c
+OBJS	= $(SRCS:.c=.o)
+LIBFT_DIR = libft
+LIBFT	= $(LIBFT_DIR)/libft.a
+MAKE	= make
 
-all: 
-	cd libft && $(MAKE) 
-	cd ..
-	$(MAKE) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(SRCS) $(LIBFT)
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
-	cd libft && $(MAKE) clean
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	cd libft && $(MAKE) fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
