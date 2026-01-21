@@ -30,22 +30,34 @@ int    ft_is_sorted(int *stack_a, int size)
     {
         if (stack_a[i] > stack_a[i + 1])
             return (1);
-        if (stack_a[i] == stack_a[i + 1])
-            ft_handle_error();
         i++;
     }
     return (0);
 }
 
-void    *ft_fillstack(char **argv, int *a, int argc)
+void    *ft_fillstack(char **argv, int *stack, int argc)
 {
     int i;
+    int j;
     
     i = 1;
     //Preenchendo stack_a com os valores de entrada
     while (i < argc)
     {
-        a[i - 1] = ft_atoi(argv[i]);
+        if ((ft_convert(argv[i], stack, i - 1)) == 1)
+            ft_handle_error();
+        i++;
+    }
+    i = 0;
+    while (i < argc - 1)
+    {
+        j = 0;
+        while (j < argc - 1)
+        {
+            if (stack[i] == stack[j] && i != j)
+                ft_handle_error();
+            j++;
+        }
         i++;
     }
     return (0);

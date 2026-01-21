@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "libft.h"
 
 typedef struct stack
 {
@@ -13,6 +12,7 @@ typedef struct stack
 
 int main(int argc, char **argv);
 int ft_handle_error(void);
+
 int ft_is_sorted(int *stack_a, int size);
 void *ft_fillstack(char **argv, int *a, int argc);
 int ft_swap(int *stack_x, int size);
@@ -24,5 +24,7 @@ void    ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void    ft_push(int *stack_dest, int *stack_src, int *size_dest, int *size_src);
 void    ft_normalizer(int *stack_a, int size);
 void    ft_radix(int *stack, int size);
+int     ft_convert(const char *n, int *stack, int index);
+
 
 #endif

@@ -10,7 +10,7 @@ void ft_normalizer(int *stack_a, int size)
         return ;
     //Copiando os valores da stack_a para a stack_temp
     i = 0;
-    while(1 < size)
+    while(i < size)
     {
         stack_temp[i] = stack_a[i];
         i++;
@@ -29,11 +29,32 @@ void ft_normalizer(int *stack_a, int size)
         stack_a[i] = count;
         i++;
     }
-    i = 0;
-    while (i < size)
-    {
-        printf("%d ", stack_a[i]);
-        i++;
-    }
+    free(stack_temp);
     return ;
+}
+
+int ft_convert(const char *n, int *stack, int index)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	sign = 1;
+	while ((n[i] >= 9 && n[i] <= 13))
+	    i++;
+	if (n[i] == '+' || n[i] == '-')
+	{
+		if (n[i] == '-')
+			sign = sign * -1;
+		i++;
+	}
+	while (n[i] != '\0')
+	{
+	    if (n[i] < '0' || n[i] > '9')
+            ft_handle_error();
+		stack[index] = stack[index] * 10 + (n[i] - '0');
+		i++;
+    }
+	stack[index] = stack[index] * sign;
+	return (0);
 }
