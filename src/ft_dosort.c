@@ -99,5 +99,10 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 		ft_push(stack_a, stack_b, size_a, size_b);
 		printf("pa\n");
 	}
-	return (0);
+}
+
+void	ft_radix(int *stack, int size)
+{
+	ft_normalizer(stack, size);
+	return ;
 }

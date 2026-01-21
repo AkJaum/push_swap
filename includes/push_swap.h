@@ -22,5 +22,7 @@ void *ft_ra_n_rb(int *stack_x, int size);
 void    ft_find_min_value(int *stack, int size);
 void    ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void    ft_push(int *stack_dest, int *stack_src, int *size_dest, int *size_src);
+void    ft_normalizer(int *stack_a, int size);
+void    ft_radix(int *stack, int size);
 
 #endif

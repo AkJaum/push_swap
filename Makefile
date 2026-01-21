@@ -1,7 +1,7 @@
 NAME	= push_swap
 CC	= gcc
 CFLAGS	= -Wall -Wextra -Werror -I includes/ -I libft/
-SRCS	= src/push_swap.c src/ft_swap.c src/ft_rotate.c src/ft_revrotate.c src/ft_dosort.c src/ft_push.c
+SRCS	= src/push_swap.c src/ft_swap.c src/ft_rotate.c src/ft_revrotate.c src/ft_dosort.c src/ft_push.c src/ft_aux.c
 OBJS	= $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT	= $(LIBFT_DIR)/libft.a
