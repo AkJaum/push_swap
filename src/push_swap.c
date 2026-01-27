@@ -12,10 +12,12 @@
 
 #include "push_swap.h"
 
-int    ft_handle_error(void)
+int    ft_handle_error(int *stack_a, int *stack_b)
 {
     //Função para tratar erros de entrada
     fprintf(stderr, "Error\n");
+    free(stack_a);
+    free(stack_b);
     exit(EXIT_FAILURE);
     return (1);
 }
@@ -45,7 +47,7 @@ void    *ft_fillstack(char **argv, int *stack, int argc)
     while (i < argc)
     {
         if ((ft_convert(argv[i], stack, i - 1)) == 1)
-            ft_handle_error();
+            ft_handle_error(stack, NULL);
         i++;
     }
     i = 0;
@@ -55,7 +57,7 @@ void    *ft_fillstack(char **argv, int *stack, int argc)
         while (j < argc - 1)
         {
             if (stack[i] == stack[j] && i != j)
-                ft_handle_error();
+                ft_handle_error(stack, NULL);
             j++;
         }
         i++;
@@ -71,7 +73,7 @@ int main(int argc, char **argv)
 
     //Checando erros na entrada, depois precisa ser adaptada junto da função de checar se há repetidos ou se há coisas além de números (daria erro na atoi)
     if (argc <= 1)
-        return (ft_handle_error());
+        return (ft_handle_error(NULL, NULL));
     
     //Alocando memória para as stacks (data) e definindo seus tamanhos (size)
     stack_a.data = malloc(sizeof(int) * (argc - 1));
@@ -94,8 +96,8 @@ int main(int argc, char **argv)
         ft_sort_2_n_3(stack_a.data, stack_a.size);
     else if (stack_a.size <= 5)
         ft_sort_5(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
-    else
-        ft_radix(stack_a.data, stack_a.size);
+    else if (stack_a.size > 5)
+        ft_radix(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
     free(stack_a.data);
     free(stack_b.data);
     return (0); 

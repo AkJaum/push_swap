@@ -60,40 +60,16 @@ void	ft_sort_2_n_3(int *stack_a, int size)
 	}
 }
 
-void	ft_find_min_value(int *stack, int size)
-{
-	int	min_value;
-	int	rotations;
-	int	i;
-
-	i = 0;
-	min_value = stack[0];
-	// Encontra o mínimo valor na stack
-	while (i < size)
-	{
-		if (stack[i] < min_value)
-			min_value = stack[i];
-		i++;
-	}
-	// Rotaciona até trazer o mínimo para o topo (stack[0])
-	rotations = 0;
-	while (stack[0] != min_value && rotations < size)
-	{
-		ft_rra_n_rrb(stack, size);
-		printf("rra\n");
-		rotations++;
-	}
-}
-
 void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
-	ft_find_min_value(stack_a, *size_a);
-	ft_push(stack_b, stack_a, size_b, size_a);
-	printf("pb\n");
-	ft_find_min_value(stack_a, *size_a);
-	ft_push(stack_b, stack_a, size_b, size_a);
-	printf("pb\n");
-	ft_sort_2_n_3(stack_a, *size_a);
+	while (*size_a > 3)
+	{
+		ft_find_min_value(stack_a, *size_a);
+		ft_push(stack_b, stack_a, size_b, size_a);
+		printf("pb\n");
+	}
+	if (ft_is_sorted(stack_a, *size_a) == 1)
+		ft_sort_2_n_3(stack_a, *size_a);
 	while (*size_b > 0)
 	{
 		ft_push(stack_a, stack_b, size_a, size_b);
@@ -101,8 +77,40 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	}
 }
 
-void	ft_radix(int *stack, int size)
+void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
-	ft_normalizer(stack, size);
+	int max_value;
+	int max_bits;
+	int bit;
+
+	ft_normalizer(stack_a, *size_a);
+	max_value = ft_find_max_value(stack_a, *size_a);
+	max_bits = 0;
+	while ((max_value >> max_bits) != 0)
+		max_bits++;
+	bit = 0;
+	while (bit < max_bits)
+	{
+		int i = size_a[0];
+		while (i--)
+		{
+			if (((stack_a[0] >> bit) & 1) == 0)
+			{
+				ft_push(stack_b, stack_a, size_b, size_a);
+				printf("pb\n");
+			}
+			else if (((stack_a[0] >> bit) & 1) == 1)
+			{
+				ft_ra_n_rb(stack_a, *size_a);
+				printf("ra\n");
+			}
+		}
+		while (*size_b > 0)
+		{
+			ft_push(stack_a, stack_b, size_a, size_b);
+			printf("pa\n");
+		}
+		bit++;
+	}
 	return ;
 }
