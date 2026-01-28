@@ -46,6 +46,8 @@ void    *ft_fillstack(char **argv, int *stack, int argc)
     //Preenchendo stack_a com os valores de entrada
     while (i < argc)
     {
+        if (argv[i][0] == '\0')
+            ft_handle_error(stack, NULL);
         if ((ft_convert(argv[i], stack, i - 1)) == 1)
             ft_handle_error(stack, NULL);
         i++;
@@ -79,7 +81,7 @@ int main(int argc, char **argv)
     stack_a.data = malloc(sizeof(int) * (argc - 1));
     stack_b.data = malloc(sizeof(int) * (argc - 1));
     if (!stack_a.data || !stack_b.data)
-        return (1);
+        ft_handle_error(stack_a.data, stack_b.data);
     
     stack_a.size = argc - 1;
     stack_b.size = 0;

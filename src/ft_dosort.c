@@ -79,9 +79,10 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 
 void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
-	int max_value;
-	int max_bits;
-	int bit;
+	int	max_value;
+	int	max_bits;
+	int	bit;
+	int	i;
 
 	ft_normalizer(stack_a, *size_a);
 	max_value = ft_find_max_value(stack_a, *size_a);
@@ -89,9 +90,9 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	while ((max_value >> max_bits) != 0)
 		max_bits++;
 	bit = 0;
-	while (bit < max_bits)
+	while (bit < max_bits && ft_is_sorted(stack_a, *size_a) == 1)
 	{
-		int i = size_a[0];
+		i = *size_a;
 		while (i--)
 		{
 			if (((stack_a[0] >> bit) & 1) == 0)
@@ -99,7 +100,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 				ft_push(stack_b, stack_a, size_b, size_a);
 				printf("pb\n");
 			}
-			else if (((stack_a[0] >> bit) & 1) == 1)
+			else
 			{
 				ft_ra_n_rb(stack_a, *size_a);
 				printf("ra\n");
@@ -112,5 +113,4 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 		}
 		bit++;
 	}
-	return ;
 }
