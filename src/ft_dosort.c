@@ -16,55 +16,45 @@ void	ft_sort_2_n_3(int *stack_a, int size)
 {
 	if (size == 2)
 	{
-		//Se os dois elementos estiverem fora de ordem, troca-os
 		if (stack_a[0] > stack_a[1])
-		{
 			ft_swap(stack_a, size);
-			printf("sa\n");
-		}
 	}
 	else if (size == 3)
 	{
-		//Encontra qual é o maior elemento
 		if (stack_a[0] > stack_a[1] && stack_a[0] > stack_a[2])
 		{
-			//Se o maior está no topo, rotaciona para trás
 			ft_ra_n_rb(stack_a, size);
-			printf("ra\n");
 			if (stack_a[0] > stack_a[1])
-			{
 				ft_swap(stack_a, size);
-				printf("sa\n");
-			}
 		}
 		else if (stack_a[1] > stack_a[0] && stack_a[1] > stack_a[2])
 		{
-			//Se o maior está no meio, rotaciona para trás duas vezes
 			ft_rra_n_rrb(stack_a, size);
-			printf("rra\n");
 			if (stack_a[0] > stack_a[1])
-			{
 				ft_swap(stack_a, size);
-				printf("sa\n");
-			}
 		}
 		else
-		{
-			//Se o maior está no final, só pode estar correto ou precisar de swap
-			if (stack_a[0] > stack_a[1])
-			{
-				ft_swap(stack_a, size);
-				printf("sa\n");
-			}
-		}
+			ft_swap(stack_a, size);
 	}
 }
 
 void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
+	int	min_pos;
+
 	while (*size_a > 3)
 	{
-		ft_find_min_value(stack_a, *size_a);
+		min_pos = ft_find_min_value(stack_a, *size_a);
+		if (min_pos <= *size_a / 2)
+		{
+			while (min_pos-- > 0)
+				ft_ra_n_rb(stack_a, *size_a);
+		}
+		else
+		{
+			while (min_pos++ < *size_a)
+				ft_rra_n_rrb(stack_a, *size_a);
+		}
 		ft_push(stack_b, stack_a, size_b, size_a);
 		printf("pb\n");
 	}
@@ -77,6 +67,7 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	}
 }
 
+//31 linhas
 void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
 	int	max_value;
@@ -101,10 +92,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 				printf("pb\n");
 			}
 			else
-			{
 				ft_ra_n_rb(stack_a, *size_a);
-				printf("ra\n");
-			}
 		}
 		while (*size_b > 0)
 		{

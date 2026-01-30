@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jneris-d <tbpjaum@outlook.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 0000/00/00 00:00:00 by jneris-d          #+#    #+#             */
+/*   Updated: 0000/00/00 00:00:00 by jneris-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "push_swap.h"
 
 /*Rotaciona o topo com o final*/
@@ -8,7 +19,6 @@ void	ft_ra_n_rb(int *stack, int size)
 
 	if (size < 2)
 		return ;
-
 	tmp = stack[0];
 	i = 0;
 	while (i < size - 1)
@@ -17,4 +27,5 @@ void	ft_ra_n_rb(int *stack, int size)
 		i++;
 	}
 	stack[size - 1] = tmp;
+	printf("ra\n");
 }

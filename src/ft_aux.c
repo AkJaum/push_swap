@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jneris-d <tbpjaum@outlook.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 0000/00/00 00:00:00 by jneris-d          #+#    #+#             */
+/*   Updated: 0000/00/00 00:00:00 by jneris-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ft_normalizer(int *stack_a, int size)
@@ -10,30 +22,25 @@ void	ft_normalizer(int *stack_a, int size)
 	tmp = malloc(sizeof(int) * size);
 	if (!tmp)
 		ft_handle_error(stack_a, tmp);
-	i = 0;
-	while (i < size)
-	{
+	i = -1;
+	while (i++ < size)
 		tmp[i] = stack_a[i];
-		i++;
-	}
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (i++ < size)
 	{
 		count = 0;
-		j = 0;
-		while (j < size)
+		j = -1;
+		while (j++ < size)
 		{
 			if (tmp[j] < tmp[i])
 				count++;
-			j++;
 		}
 		stack_a[i] = count;
-		i++;
 	}
 	free(tmp);
 }
 
-int	ft_convert(const char *n, int *stack, int index)
+void	ft_convert(const char *n, int *stack, int index)
 {
 	long	result;
 	int		sign;
@@ -42,40 +49,27 @@ int	ft_convert(const char *n, int *stack, int index)
 	result = 0;
 	sign = 1;
 	i = 0;
-
-	/* pular espaços */
 	while (n[i] == ' ' || (n[i] >= 9 && n[i] <= 13))
 		i++;
-
-	/* tratar sinal */
 	if (n[i] == '+' || n[i] == '-')
-	{
-		if (n[i] == '-')
+		if (n[i++] == '-')
 			sign = -1;
-		i++;
-	}
-
-	/* sinal sem número */
-	if (n[i] == '\0')
+	if (n[i] < '0' || n[i] > '9')
 		ft_handle_error(stack, NULL);
-
-	/* conversão */
-	while (n[i])
+	while (n[i] >= '0' && n[i] <= '9')
 	{
-		if (n[i] < '0' || n[i] > '9')
-			ft_handle_error(stack, NULL);
 		result = result * 10 + (n[i] - '0');
 		if ((sign == 1 && result > INT_MAX)
-			|| (sign == -1 && -result < INT_MIN))
+			|| (sign == -1 && result * -1 < INT_MIN))
 			ft_handle_error(stack, NULL);
 		i++;
 	}
-
+	if (n[i])
+		ft_handle_error(stack, NULL);
 	stack[index] = (int)(result * sign);
-	return (0);
 }
 
-void	ft_find_min_value(int *stack, int size)
+int	ft_find_min_value(int *stack, int size)
 {
 	int	min_value;
 	int	min_pos;
@@ -83,7 +77,7 @@ void	ft_find_min_value(int *stack, int size)
 
 	min_value = stack[0];
 	min_pos = 0;
-	i = 1;
+	i = 0;
 	while (i < size)
 	{
 		if (stack[i] < min_value)
@@ -93,37 +87,21 @@ void	ft_find_min_value(int *stack, int size)
 		}
 		i++;
 	}
-	if (min_pos <= size / 2)
-	{
-		while (min_pos-- > 0)
-		{
-			ft_ra_n_rb(stack, size);
-			printf("ra\n");
-		}
-	}
-	else
-	{
-		while (min_pos++ < size)
-		{
-			ft_rra_n_rrb(stack, size);
-			printf("rra\n");
-		}
-	}
+	return (min_pos);
 }
 
-int ft_find_max_value(int *stack, int size)
+int	ft_find_max_value(int *stack, int size)
 {
 	int	max_value;
 	int	i;
 
 	i = 0;
 	max_value = stack[0];
-	// Encontra o mínimo valor na stack
 	while (i < size)
 	{
 		if (stack[i] > max_value)
 			max_value = stack[i];
 		i++;
 	}
-    return (max_value);
+	return (max_value);
 }

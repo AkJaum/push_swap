@@ -12,95 +12,81 @@
 
 #include "push_swap.h"
 
-int    ft_handle_error(int *stack_a, int *stack_b)
+int	ft_handle_error(int *stack_a, int *stack_b)
 {
-    //Função para tratar erros de entrada
-    fprintf(stderr, "Error\n");
-    free(stack_a);
-    free(stack_b);
-    exit(EXIT_FAILURE);
-    return (1);
+	fprintf(stderr, "Error\n");
+	free(stack_a);
+	free(stack_b);
+	exit(EXIT_FAILURE);
+	return (1);
 }
 
-int    ft_is_sorted(int *stack_a, int size)
+int	ft_is_sorted(int *stack_a, int size)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    //Loop para checar se a stack está ordenada ou se há números repetidos
-    while (i < size - 1)
-    {
-        if (stack_a[i] > stack_a[i + 1])
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (i < size - 1)
+	{
+		if (stack_a[i] > stack_a[i + 1])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-void    *ft_fillstack(char **argv, int *stack, int argc)
+void	*ft_fillstack(char **argv, int *stack, int argc)
 {
-    int i;
-    int j;
-    
-    i = 1;
-    //Preenchendo stack_a com os valores de entrada
-    while (i < argc)
-    {
-        if (argv[i][0] == '\0')
-            ft_handle_error(stack, NULL);
-        if ((ft_convert(argv[i], stack, i - 1)) == 1)
-            ft_handle_error(stack, NULL);
-        i++;
-    }
-    i = 0;
-    while (i < argc - 1)
-    {
-        j = 0;
-        while (j < argc - 1)
-        {
-            if (stack[i] == stack[j] && i != j)
-                ft_handle_error(stack, NULL);
-            j++;
-        }
-        i++;
-    }
-    return (0);
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (argv[i][0] == '\0')
+			ft_handle_error(stack, NULL);
+		else
+			ft_convert(argv[i], stack, i - 1);
+		i++;
+	}
+	i = 0;
+	while (i < argc - 1)
+	{
+		j = 0;
+		while (j < argc - 1)
+		{
+			if (stack[i] == stack[j] && i != j)
+				ft_handle_error(stack, NULL);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    //Declarando stacks
-    t_stack stack_a;
-    t_stack stack_b;
+	t_stack	stack_a;
+	t_stack	stack_b;
 
-    //Checando erros na entrada, depois precisa ser adaptada junto da função de checar se há repetidos ou se há coisas além de números (daria erro na atoi)
-    if (argc <= 1)
-        return (ft_handle_error(NULL, NULL));
-    
-    //Alocando memória para as stacks (data) e definindo seus tamanhos (size)
-    stack_a.data = malloc(sizeof(int) * (argc - 1));
-    stack_b.data = malloc(sizeof(int) * (argc - 1));
-    if (!stack_a.data || !stack_b.data)
-        ft_handle_error(stack_a.data, stack_b.data);
-    
-    stack_a.size = argc - 1;
-    stack_b.size = 0;
-
-    //Preenchendo stack_a com os valores de entrada
-    ft_fillstack(argv, stack_a.data, argc);
-    //Checando se já está ordenado
-    if (ft_is_sorted(stack_a.data, stack_a.size) == 0)
-        return (free(stack_a.data), free(stack_b.data), 0);
-    //Ordenar baseado no tamanho da stack
-    if (stack_a.size == 2)
-        ft_sort_2_n_3(stack_a.data, stack_a.size);
-    else if (stack_a.size == 3)
-        ft_sort_2_n_3(stack_a.data, stack_a.size);
-    else if (stack_a.size <= 5)
-        ft_sort_5(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
-    else if (stack_a.size > 5)
-        ft_radix(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
-    free(stack_a.data);
-    free(stack_b.data);
-    return (0); 
+	if (argc <= 1)
+		return (ft_handle_error(NULL, NULL));
+	stack_a.data = malloc(sizeof(int) * (argc - 1));
+	stack_b.data = malloc(sizeof(int) * (argc - 1));
+	if (!stack_a.data || !stack_b.data)
+		ft_handle_error(stack_a.data, stack_b.data);
+	stack_a.size = argc - 1;
+	stack_b.size = 0;
+	ft_fillstack(argv, stack_a.data, argc);
+	if (ft_is_sorted(stack_a.data, stack_a.size) == 0)
+		return (free(stack_a.data), free(stack_b.data), 0);
+	if (stack_a.size == 2 || stack_a.size == 3)
+		ft_sort_2_n_3(stack_a.data, stack_a.size);
+	else if (stack_a.size == 4 || stack_a.size == 5)
+		ft_sort_5(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
+	else if (stack_a.size > 5)
+		ft_radix(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
+	free(stack_a.data);
+	free(stack_b.data);
+	return (0);
 }
