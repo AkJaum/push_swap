@@ -22,21 +22,33 @@ void	ft_normalizer(int *stack_a, int size)
 	tmp = malloc(sizeof(int) * size);
 	if (!tmp)
 		ft_handle_error(stack_a, tmp);
-	i = -1;
-	while (i++ < size)
+	i = 0;
+	while (i < size)
+	{
 		tmp[i] = stack_a[i];
-	i = -1;
-	while (i++ < size)
+		i++;
+	}
+	i = 0;
+	while (i < size)
 	{
 		count = 0;
-		j = -1;
-		while (j++ < size)
-		{
+		j = 0;
+		while (j < size)
+		{   
 			if (tmp[j] < tmp[i])
 				count++;
+			j++;
 		}
 		stack_a[i] = count;
+		i++;
 	}
+	i = 0;
+	while (tmp[i] != '\0')
+	{
+		printf("stack[%d] = %d\n", i , stack_a[i]);
+		i++;
+	}   
+	
 	free(tmp);
 }
 

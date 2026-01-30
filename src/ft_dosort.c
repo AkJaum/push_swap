@@ -81,7 +81,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	while ((max_value >> max_bits) != 0)
 		max_bits++;
 	bit = 0;
-	while (bit < max_bits && ft_is_sorted(stack_a, *size_a) == 1)
+	while (bit < max_bits)
 	{
 		i = *size_a;
 		while (i--)
