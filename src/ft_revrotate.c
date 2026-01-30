@@ -27,5 +27,5 @@ void	ft_rra_n_rrb(int *stack_x, int size)
 		i--;
 	}
 	stack_x[0] = tmp;
-	printf("rra\n");
+	write(1, "rra\n", 4);
 }

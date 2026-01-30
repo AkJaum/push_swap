@@ -14,7 +14,7 @@
 
 int	ft_handle_error(int *stack_a, int *stack_b)
 {
-	fprintf(stderr, "Error\n");
+	write(2, "Error\n", 6);
 	free(stack_a);
 	free(stack_b);
 	exit(EXIT_FAILURE);

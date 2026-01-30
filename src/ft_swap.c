@@ -20,5 +20,5 @@ void	ft_swap(int *stack_x, int size)
 	temp = stack_x[0];
 	stack_x[0] = stack_x[1];
 	stack_x[1] = temp;
-	printf("sa\n");
+	write(1, "sa\n", 3);
 }

@@ -13,7 +13,7 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
-# include <stdio.h>
+# include <unistd.h>
 # include <limits.h>
 
 typedef struct stack

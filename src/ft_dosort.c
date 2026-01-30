@@ -56,14 +56,14 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 				ft_rra_n_rrb(stack_a, *size_a);
 		}
 		ft_push(stack_b, stack_a, size_b, size_a);
-		printf("pb\n");
+		write(1, "pb\n", 3);
 	}
 	if (ft_is_sorted(stack_a, *size_a) == 1)
 		ft_sort_2_n_3(stack_a, *size_a);
 	while (*size_b > 0)
 	{
 		ft_push(stack_a, stack_b, size_a, size_b);
-		printf("pa\n");
+		write(1, "pa\n", 3);
 	}
 }
 
@@ -89,7 +89,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 			if (((stack_a[0] >> bit) & 1) == 0)
 			{
 				ft_push(stack_b, stack_a, size_b, size_a);
-				printf("pb\n");
+				write(1, "pb\n", 3);
 			}
 			else
 				ft_ra_n_rb(stack_a, *size_a);
@@ -97,7 +97,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 		while (*size_b > 0)
 		{
 			ft_push(stack_a, stack_b, size_a, size_b);
-			printf("pa\n");
+			write(1, "pa\n", 3);
 		}
 		bit++;
 	}
