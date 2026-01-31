@@ -6,7 +6,7 @@
 /*   By: jneris-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:47:26 by jneris-d          #+#    #+#             */
-/*   Updated: 2025/11/25 14:47:29 by jneris-d         ###   ########.fr       */
+/*   Updated: 2026/01/31 16:26:53 by jneris-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,38 @@ int	ft_is_sorted(int *stack_a, int size)
 	return (0);
 }
 
-void	*ft_fillstack(char **argv, int *stack, int argc)
+void	ft_convert_n_fillstack(char **argv, int *stack, int *size)
+{
+	char	**numbers;
+	int		i;
+
+	numbers = ft_split(argv[1], ' ');
+	i = 0;
+	while (numbers[i])
+	{
+		if (numbers[i][0] == '\0')
+		{
+			i = 0;
+			while (numbers[i])
+				free(numbers[i++]);
+			free(numbers);
+			ft_handle_error(stack, NULL);
+		}
+		else
+			ft_convert(numbers[i], stack, i);
+		i++;
+	}
+	*size = i;
+	i = 0;
+	while (numbers[i])
+		free(numbers[i++]);
+	free(numbers);
+	ft_is_duplicated(stack, *size);
+}
+
+void	ft_fillstack(char **argv, int *stack, int argc)
 {
 	int	i;
-	int	j;
 
 	i = 1;
 	while (i < argc)
@@ -49,19 +77,7 @@ void	*ft_fillstack(char **argv, int *stack, int argc)
 			ft_convert(argv[i], stack, i - 1);
 		i++;
 	}
-	i = 0;
-	while (i < argc - 1)
-	{
-		j = 0;
-		while (j < argc - 1)
-		{
-			if (stack[i] == stack[j] && i != j)
-				ft_handle_error(stack, NULL);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+	ft_is_duplicated(stack, argc - 1);
 }
 
 int	main(int argc, char **argv)
@@ -70,14 +86,17 @@ int	main(int argc, char **argv)
 	t_stack	stack_b;
 
 	if (argc <= 1)
-		return (ft_handle_error(NULL, NULL));
+		return (0);
 	stack_a.data = malloc(sizeof(int) * (argc - 1));
 	stack_b.data = malloc(sizeof(int) * (argc - 1));
 	if (!stack_a.data || !stack_b.data)
 		ft_handle_error(stack_a.data, stack_b.data);
 	stack_a.size = argc - 1;
 	stack_b.size = 0;
-	ft_fillstack(argv, stack_a.data, argc);
+	if (argc == 2)
+		ft_convert_n_fillstack(argv, stack_a.data, &stack_a.size);
+	else
+		ft_fillstack(argv, stack_a.data, argc);
 	if (ft_is_sorted(stack_a.data, stack_a.size) == 0)
 		return (free(stack_a.data), free(stack_b.data), 0);
 	if (stack_a.size == 2 || stack_a.size == 3)

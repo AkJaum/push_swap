@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jneris-d <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 15:54:55 by jneris-d          #+#    #+#             */
+/*   Updated: 2025/11/06 15:54:57 by jneris-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int	ft_charinset(char c, const char *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*strtrimmed;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = ft_strlen((char *) s1) - 1;
+	while (s1[i] && ft_charinset(s1[i], set))
+		i++;
+	while (j > i && ft_charinset(s1[j], set))
+		j--;
+	strtrimmed = ft_substr(s1, i, j - i + 1);
+	return (strtrimmed);
+}

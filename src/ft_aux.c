@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jneris-d <tbpjaum@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 0000/00/00 00:00:00 by jneris-d          #+#    #+#             */
-/*   Updated: 0000/00/00 00:00:00 by jneris-d         ###   ########.fr       */
+/*   Updated: 2026/01/31 16:25:52 by jneris-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,24 @@ int	ft_find_max_value(int *stack, int size)
 		i++;
 	}
 	return (max_value);
+}
+
+int	ft_is_duplicated(int *stack, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (stack[i] == stack[j])
+				ft_handle_error(stack, NULL);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
