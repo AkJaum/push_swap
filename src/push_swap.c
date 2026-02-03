@@ -105,7 +105,5 @@ int	main(int argc, char **argv)
 		ft_sort_5(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
 	else if (stack_a.size > 5)
 		ft_radix(stack_a.data, &stack_a.size, stack_b.data, &stack_b.size);
-	free(stack_a.data);
-	free(stack_b.data);
-	return (0);
+	return (free(stack_a.data), free(stack_b.data), 0);
 }

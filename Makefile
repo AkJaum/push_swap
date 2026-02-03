@@ -19,7 +19,6 @@ $(NAME): $(OBJS) $(LIBFT)
 
 clean:
 	rm -f $(OBJS)
-	#Tem que tirar esse wild seu porra
 	make -C libft clean
 
 fclean: clean

@@ -38,6 +38,15 @@ void	ft_sort_2_n_3(int *stack_a, int size)
 	}
 }
 
+void	ft_push_all_back(int *stack_a, int *stack_b, int *size_a, int *size_b)
+{
+	while (*size_b > 0)
+	{
+		ft_push(stack_a, stack_b, size_a, size_b);
+		write(1, "pa\n", 3);
+	}
+}
+
 void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 {
 	int	min_pos;
@@ -60,26 +69,29 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	}
 	if (ft_is_sorted(stack_a, *size_a) == 1)
 		ft_sort_2_n_3(stack_a, *size_a);
-	while (*size_b > 0)
-	{
-		ft_push(stack_a, stack_b, size_a, size_b);
-		write(1, "pa\n", 3);
-	}
+	ft_push_all_back(stack_a, stack_b, size_a, size_b);
 }
 
-//31 linhas
-void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
+int	ft_bitrix(int *stack_a, int *size_a)
 {
 	int	max_value;
 	int	max_bits;
-	int	bit;
-	int	i;
 
 	ft_normalizer(stack_a, *size_a);
 	max_value = ft_find_max_value(stack_a, *size_a);
 	max_bits = 0;
 	while ((max_value >> max_bits) != 0)
 		max_bits++;
+	return (max_bits);
+}
+
+void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
+{
+	int	max_bits;
+	int	bit;
+	int	i;
+
+	max_bits = ft_bitrix(stack_a, size_a);
 	bit = 0;
 	while (bit < max_bits)
 	{
@@ -94,11 +106,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 			else
 				ft_ra_n_rb(stack_a, *size_a);
 		}
-		while (*size_b > 0)
-		{
-			ft_push(stack_a, stack_b, size_a, size_b);
-			write(1, "pa\n", 3);
-		}
+		ft_push_all_back(stack_a, stack_b, size_a, size_b);
 		bit++;
 	}
 }

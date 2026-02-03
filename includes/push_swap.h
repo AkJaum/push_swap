@@ -34,10 +34,12 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void	ft_push(int *stack_dest, int *stack_src, int *size_dest, int *size_src);
 void	ft_normalizer(int *stack_a, int size);
 void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b);
+void	ft_push_all_back(int *stack_a, int *stack_b, int *size_a, int *size_b);
 int		ft_handle_error(int *stack_a, int *stack_b);
 int		ft_find_max_value(int *stack, int size);
 int		ft_find_min_value(int *stack, int size);
 int		ft_is_sorted(int *stack_a, int size);
 int		ft_is_duplicated(int *stack, int size);
+int		ft_bitrix(int *stack_a, int *size_a);
 
 #endif
