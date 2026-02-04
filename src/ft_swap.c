@@ -16,7 +16,7 @@ void	ft_swap(int *stack_x, int size)
 	int	temp;
 
 	if (!stack_x || size < 2)
-		ft_handle_error(stack_x, NULL);
+		ft_handle_error(stack_x, NULL, NULL);
 	temp = stack_x[0];
 	stack_x[0] = stack_x[1];
 	stack_x[1] = temp;

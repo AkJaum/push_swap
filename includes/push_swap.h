@@ -23,23 +23,23 @@ typedef struct stack
 	int	size;
 }	t_stack;
 
-void	ft_convert(const char *n, int *stack, int index);
-void	ft_fillstack(char **argv, int *a, int argc);
-void	ft_convert_n_fillstack(char **argv, int *stack, int *size);
+void	ft_fillstack(char **argv, int *stack, int argc, int *stack_b);
+void	ft_split_stack(char **argv, int **stack, int *size, int **stack_b);
 void	ft_swap(int *stack_x, int size);
 void	ft_sort_2_n_3(int *stack_a, int size);
+void	ft_is_duplicated(int *stack, int size, int *stack_b, char **numbers);
 void	ft_rra_n_rrb(int *stack_x, int size);
 void	ft_ra_n_rb(int *stack_x, int size);
 void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void	ft_push(int *stack_dest, int *stack_src, int *size_dest, int *size_src);
-void	ft_normalizer(int *stack_a, int size);
+void	ft_normalizer(int *stack_a, int size, int *stack_b);
 void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void	ft_push_all_back(int *stack_a, int *stack_b, int *size_a, int *size_b);
-int		ft_handle_error(int *stack_a, int *stack_b);
+int		ft_handle_error(int *stack_a, int *stack_b, char **split);
 int		ft_find_max_value(int *stack, int size);
 int		ft_find_min_value(int *stack, int size);
 int		ft_is_sorted(int *stack_a, int size);
-int		ft_is_duplicated(int *stack, int size);
-int		ft_bitrix(int *stack_a, int *size_a);
+int		ft_bitrix(int *stack_a, int *size_a, int *stack_b);
+int		ft_convert(const char *n, int *stack, int index);
 
 #endif

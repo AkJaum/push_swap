@@ -12,11 +12,20 @@
 
 #include "push_swap.h"
 
-int	ft_handle_error(int *stack_a, int *stack_b)
+int	ft_handle_error(int *stack_a, int *stack_b, char **split)
 {
+	int	i;
+
+	i = 0;
 	write(2, "Error\n", 6);
 	free(stack_a);
 	free(stack_b);
+	if (split != NULL)
+	{
+		while (split && split[i])
+			free(split[i++]);
+		free(split);
+	}
 	exit(EXIT_FAILURE);
 	return (1);
 }
@@ -35,36 +44,35 @@ int	ft_is_sorted(int *stack_a, int size)
 	return (0);
 }
 
-void	ft_convert_n_fillstack(char **argv, int *stack, int *size)
+void	ft_split_stack(char **argv, int **stack, int *size, int **stack_b)
 {
 	char	**numbers;
 	int		i;
 
 	numbers = ft_split(argv[1], ' ');
 	i = 0;
+	while (numbers && numbers[i])
+		i++;
+	if (!numbers || i == 0)
+		ft_handle_error(*stack, *stack_b, numbers);
+	free(*stack);
+	free(*stack_b);
+	*stack = malloc(sizeof(int) * i);
+	*stack_b = malloc(sizeof(int) * i);
+	if (!*stack || !*stack_b)
+		ft_handle_error(*stack, *stack_b, numbers);
+	i = 0;
 	while (numbers[i])
 	{
-		if (numbers[i][0] == '\0')
-		{
-			i = 0;
-			while (numbers[i])
-				free(numbers[i++]);
-			free(numbers);
-			ft_handle_error(stack, NULL);
-		}
-		else
-			ft_convert(numbers[i], stack, i);
+		if (ft_convert(numbers[i], *stack, i) == 1)
+			ft_handle_error(*stack, *stack_b, numbers);
 		i++;
 	}
 	*size = i;
-	i = 0;
-	while (numbers[i])
-		free(numbers[i++]);
-	free(numbers);
-	ft_is_duplicated(stack, *size);
+	ft_is_duplicated(*stack, *size, *stack_b, numbers);
 }
 
-void	ft_fillstack(char **argv, int *stack, int argc)
+void	ft_fillstack(char **argv, int *stack, int argc, int *stack_b)
 {
 	int	i;
 
@@ -72,12 +80,13 @@ void	ft_fillstack(char **argv, int *stack, int argc)
 	while (i < argc)
 	{
 		if (argv[i][0] == '\0')
-			ft_handle_error(stack, NULL);
+			ft_handle_error(stack, stack_b, NULL);
 		else
-			ft_convert(argv[i], stack, i - 1);
+			if (ft_convert(argv[i], stack, i - 1) == 1)
+				ft_handle_error(stack, stack_b, NULL);
 		i++;
 	}
-	ft_is_duplicated(stack, argc - 1);
+	ft_is_duplicated(stack, argc - 1, stack_b, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -90,13 +99,13 @@ int	main(int argc, char **argv)
 	stack_a.data = malloc(sizeof(int) * (argc - 1));
 	stack_b.data = malloc(sizeof(int) * (argc - 1));
 	if (!stack_a.data || !stack_b.data)
-		ft_handle_error(stack_a.data, stack_b.data);
+		ft_handle_error(stack_a.data, stack_b.data, NULL);
 	stack_a.size = argc - 1;
 	stack_b.size = 0;
 	if (argc == 2)
-		ft_convert_n_fillstack(argv, stack_a.data, &stack_a.size);
+		ft_split_stack(argv, &stack_a.data, &stack_a.size, &stack_b.data);
 	else
-		ft_fillstack(argv, stack_a.data, argc);
+		ft_fillstack(argv, stack_a.data, argc, stack_b.data);
 	if (ft_is_sorted(stack_a.data, stack_a.size) == 0)
 		return (free(stack_a.data), free(stack_b.data), 0);
 	if (stack_a.size == 2 || stack_a.size == 3)

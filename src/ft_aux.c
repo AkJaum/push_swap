@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_normalizer(int *stack_a, int size)
+void	ft_normalizer(int *stack_a, int size, int *stack_b)
 {
 	int	*tmp;
 	int	i;
@@ -21,7 +21,7 @@ void	ft_normalizer(int *stack_a, int size)
 
 	tmp = malloc(sizeof(int) * size);
 	if (!tmp)
-		ft_handle_error(stack_a, NULL);
+		ft_handle_error(stack_a, stack_b, NULL);
 	i = -1;
 	while (++i < size)
 		tmp[i] = stack_a[i];
@@ -38,7 +38,7 @@ void	ft_normalizer(int *stack_a, int size)
 	free(tmp);
 }
 
-void	ft_convert(const char *n, int *stack, int index)
+int	ft_convert(const char *n, int *stack, int index)
 {
 	long	result;
 	int		sign;
@@ -53,18 +53,18 @@ void	ft_convert(const char *n, int *stack, int index)
 		if (n[i++] == '-')
 			sign = -1;
 	if (n[i] < '0' || n[i] > '9')
-		ft_handle_error(stack, NULL);
+		return (1);
 	while (n[i] >= '0' && n[i] <= '9')
 	{
 		result = result * 10 + (n[i] - '0');
 		if ((sign == 1 && result > INT_MAX)
 			|| (sign == -1 && result * -1 < INT_MIN))
-			ft_handle_error(stack, NULL);
+			return (1);
 		i++;
 	}
 	if (n[i])
-		ft_handle_error(stack, NULL);
-	stack[index] = (int)(result * sign);
+		return (1);
+	return ((stack[index] = (int)(result * sign)) * 0);
 }
 
 int	ft_find_min_value(int *stack, int size)
@@ -104,11 +104,21 @@ int	ft_find_max_value(int *stack, int size)
 	return (max_value);
 }
 
-int	ft_is_duplicated(int *stack, int size)
+void	ft_is_duplicated(int *stack, int size, int *stack_b, char **numbers)
 {
 	int	i;
 	int	j;
 
+	i = 0;
+	if (size < 1)
+		ft_handle_error(stack, stack_b, NULL);
+	if (numbers != NULL)
+	{
+		i = 0;
+		while (numbers[i])
+			free(numbers[i++]);
+		free(numbers);
+	}
 	i = 0;
 	while (i < size)
 	{
@@ -116,10 +126,9 @@ int	ft_is_duplicated(int *stack, int size)
 		while (j < size)
 		{
 			if (stack[i] == stack[j])
-				ft_handle_error(stack, NULL);
+				ft_handle_error(stack, stack_b, NULL);
 			j++;
 		}
 		i++;
 	}
-	return (0);
 }

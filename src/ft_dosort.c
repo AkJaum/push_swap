@@ -72,12 +72,12 @@ void	ft_sort_5(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	ft_push_all_back(stack_a, stack_b, size_a, size_b);
 }
 
-int	ft_bitrix(int *stack_a, int *size_a)
+int	ft_bitrix(int *stack_a, int *size_a, int *stack_b)
 {
 	int	max_value;
 	int	max_bits;
 
-	ft_normalizer(stack_a, *size_a);
+	ft_normalizer(stack_a, *size_a, stack_b);
 	max_value = ft_find_max_value(stack_a, *size_a);
 	max_bits = 0;
 	while ((max_value >> max_bits) != 0)
@@ -91,7 +91,7 @@ void	ft_radix(int *stack_a, int *size_a, int *stack_b, int *size_b)
 	int	bit;
 	int	i;
 
-	max_bits = ft_bitrix(stack_a, size_a);
+	max_bits = ft_bitrix(stack_a, size_a, stack_b);
 	bit = 0;
 	while (bit < max_bits)
 	{
